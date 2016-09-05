@@ -1,29 +1,47 @@
+// Fenwick Tree (BIT) using STL vector
+
 template <typename T>
 class fenwick_tree
 {
+private:
+  typedef std::size_t size_type;
+  typedef T value_type;
+  
 public:
-  fenwick_tree(std::size_t n = 100000) : _n(n) { _tree.assign(_n + 1, 0); }
-  fenwick_tree(std::vector<auto> const& tree) : _n(tree.size()), _tree(tree) {}
-
+  fenwick_tree(size_type size = 0) : _size(size), _tree(std::vector<value_type>(size)) {}
+  fenwick_tree(std::vector<value_type> const& tree) : _size(tree.size()), _tree(tree) {}
+  
+  void assign(size_type size, value_type default_value = 0)
+  {
+    _size = size;
+    _tree.assign(size, default_value);
+  }
+  
+  void resize(size_type size, value_type default_value = 0)
+  {
+    _size = size;
+    _tree.resize(size, default_value);
+  }
+  
+  void update(int p, value_type value)
+  {
+    for(; p <= _size; p += (p & (-p))) _tree[p] += value;
+  }
+  
   value_type query(int p)
   {
     value_type result = 0;
-    for (; p > 0; p -= p & -p) result += _tree[p];
-
+    for (; p; p -= (p & (-p))) result += _tree[p];
+    
     return result;
   }
-
-  void update(int p, value_type value)
+  
+  size_type size() const noexcept
   {
-    for (; p <= _n; p += p & -p) _tree[p] += value;
+    return _size;
   }
-
-  size_type size const noexcept{ return _n; }
-
+  
 private:
-  typedef typename T value_type;
-  typedef typename std::size_t size_type;
-
+  size_type _size;
   std::vector<value_type> _tree;
-  std::size_t _n;
 };
