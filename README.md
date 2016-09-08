@@ -2,7 +2,7 @@
 This is a C++ codes for Problem Solving. It includes some arithmetic, helper function, and data structures.
 
 ## Data Structures
-### 1. Fenwick Tree (Binary Indexed Tree)
+### 1. Fenwick Tree (Binary Indexed Tree; BIT)
 A Fenwick tree (binary indexed tree; BIT) is a data structure that can efficiently update elements and calculate prefix sums in a table of numbers.
 
 #### Usages
@@ -17,8 +17,8 @@ tree.resize(size, default_value); // resizes the container so that it contains n
 std::size_t size = tree.size(); // returns the number of elements in the BIT.
 
 /* Operatation */
-tree.query();
-tree.update();
+tree.query(int p); // returns the value of the element at index p.
+tree.update(int p, int value); // add some value to element at index p.
 ```
 ### 2. Union Find (Disjoint Set)
 Union-find (disjoint-set or merge-find set) is a data structure that keeps track of a set of elements partitioned into a number of disjoint subsets.
