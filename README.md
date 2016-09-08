@@ -1,5 +1,5 @@
 # Algorithms for PS
-This is a C++ codes for Problem Solving. It includes some arithmetic, helper function, and data structures.
+This is a C++ codes for Problem Solving(PS). It includes some algorithms such as arithmetic, helper function, data structures and etc.
 
 ## Data Structures
 ### 1. Fenwick Tree (Binary Indexed Tree; BIT)
