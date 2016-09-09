@@ -127,15 +127,17 @@ printf, scanf are roughly thrice as fast as the std::cin, std::cout.
 
 ```c++
 #include <cstdio>
+#include <cstring> // using std::memcpy
 
-// using io::read_int();
+// using scanner structure (see Miscellaneous/scanner)
 
 int main(int const argc, char const** argv)
 {
-  /* emit */
+  scanner sc;
+  char c = sc.read_char();
+  int v = sc.read_int();
   
   return 0;
 }
 ```
-this is one of the fastest way to take an integer input from STDIN this is around 10 times faster than sacnf.
-This is very useful in competetive programming!
+this is one of the fastest way to take an integer input from STDIN. this is around 10 times faster than sacnf. This is very useful in competetive programming!
