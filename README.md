@@ -36,7 +36,7 @@ disjoint_Set.unite(x, y); // join two subsets into a single subset.
 ### Flow Networks
 A flow network is a directed graph where each edge has a capacity and each edge receives a flow.
 
-#### 1. Ford Fulkerson
+#### 1. Ford-Fulkerson
 The Ford–Fulkerson algorithm (FFA) is a greedy algorithm that computes the maximum flow in a flow network.
 
 ##### Usages
@@ -44,14 +44,14 @@ The Ford–Fulkerson algorithm (FFA) is a greedy algorithm that computes the max
 ford_fulkerson maximum_flow(std::size_t size, int source, int sink);
 
 /* Operations */
-maximum_flow.add_edge(u, v, capacity); // adds edge from u to v
-maximum_flow.add_edge_from_source(v, capacity); // adds edge from source to v
-maximum_flow.add_edge_to_sink(u, capacity); // adds edge u to sink
+maximum_flow.add_edge(u, v, capacity); // adds edge from u to v.
+maximum_flow.add_edge_from_source(v, capacity); // adds edge from source to v.
+maximum_flow.add_edge_to_sink(u, capacity); // adds edge u to sink.
 
-maximum_flow.flow(); // returns the maximum flow in graph
+maximum_flow.flow(); // returns the maximum flow in graph.
 ```
 
-#### 2. Edmonds Karp
+#### 2. Edmonds-Karp
 The Edmonds Karp algorithm is an implementation of the Ford Fulkerson algorithm for computing the maximum flow in a flow network in O(V^2 E) time.
 
 ##### Usages
@@ -59,11 +59,11 @@ The Edmonds Karp algorithm is an implementation of the Ford Fulkerson algorithm 
 edmonds_karp maximum_flow(std::size_t size, int source, int sink);
 
 /* Operations */
-maximum_flow.add_edge(u, v, capacity); // adds edge from u to v
-maximum_flow.add_edge_from_source(v, capacity); // adds edge from source to v
-maximum_flow.add_edge_to_sink(u, capacity); // adds edge u to sink
+maximum_flow.add_edge(u, v, capacity); // adds edge from u to v.
+maximum_flow.add_edge_from_source(v, capacity); // adds edge from source to v.
+maximum_flow.add_edge_to_sink(u, capacity); // adds edge u to sink.
 
-maximum_flow.flow(); // returns the maximum flow in graph
+maximum_flow.flow(); // returns the maximum flow in graph.
 ```
 
 #### 3. Dinic
@@ -74,11 +74,24 @@ The Dinic's algorithm is a strongly polynomial algorithm for computing the maxim
 dinic maximum_flow(std::size_t size, int source, int sink);
 
 /* Operations */
-maximum_flow.add_edge(u, v, capacity); // adds edge from u to v
-maximum_flow.add_edge_from_source(v, capacity); // adds edge from source to v
-maximum_flow.add_edge_to_sink(u, capacity); // adds edge u to sink
+maximum_flow.add_edge(u, v, capacity); // adds edge from u to v.
+maximum_flow.add_edge_from_source(v, capacity); // adds edge from source to v.
+maximum_flow.add_edge_to_sink(u, capacity); // adds edge u to sink.
 
-maximum_flow.flow(); // returns the maximum flow in graph
+maximum_flow.flow(); // returns the maximum flow in graph.
+```
+
+### Maximum matching for bipartite graph
+#### Hopcroft-Karp
+The Hopcroft-karp algorithm is an algorithm that take as input a bipartite graph and produces as output a maximum cardinality matching. It runs in O(|E| sqrt(|v|)) time.
+
+##### Usages
+```c++
+hopcroft_karp maximum_matching();
+
+/* Operations */
+
+maximum_matching.match(); // returns the maximum cardinality matching in bipartite graph.
 ```
 
 ## Mathematics
@@ -92,7 +105,7 @@ maximum_flow.flow(); // returns the maximum flow in graph
 * find prime number (sieve of eratosthenes, sieve of atkin)
 
 ## Miscellaneous
-### Fast I/O
+### Scanner (Fast I/O)
 Lets say you have take an input of largest numbers, there are many methods.
 
 ```c++
