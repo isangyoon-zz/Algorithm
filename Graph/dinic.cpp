@@ -1,114 +1,109 @@
-// dinic max_flow(n);
-// max_flow.add(FROM, TO, capacity[, reverse_capacity]);
-// auto answer = max_flow.flow(SOURCE, SINK);
-
-class dinic
+// Maximum Flow
+struct dinic
 {
-private:
-  typedef int flow_type;
-  typedef std::size_t size_type;
-
-public:
-  dinic(std::size_t n) : _n(n)
+  struct edge
   {
-    _adj.resize(_n);
-    for (auto i = 0; i < _n; ++i) _adj[i].clear();
+    int to;
+    int capacity;
+    edge* reverse;
+
+    edge(int to, int capacity) : to(to), capacity(capacity) {}
+  };
+
+  const int INF = 2147483647;
+
+  std::size_t n;
+  int source, sink;
+  std::vector<std::vector<edge*>> adj;
+  std::vector<int> level;
+  std::vector<int> q, s;
+
+  dinic(std::size_t n, int source, int sink) : n(n), source(source), sink(sink)
+  {
+    adj.resize(n);
+    level.resize(n);
+    q.resize(n);
+    s.resize(n);
   }
 
-  void add(int from, int to, flow_type capacity, flow_type reverse = 0)
+  void add_edge(int u, int v, int capacity)
   {
-    _adj[from].push_back(_edge(to, _adj[to].size(), capacity));
-    _adj[to].push_back(_edge(from, _adj[from].size(), reverse));
+    edge* forward = new edge(v, capacity);
+    edge* backward = new edge(u, 0);
+
+    forward->reverse = backward;
+    backward->reverse = forward;
+
+    adj[u].push_back(forward);
+    adj[v].push_back(backward);
   }
 
-  bool level(int s, int t)
+  void add_edge_from_source(int v, int capacity)
+  {
+    add_edge(source, v, capacity);
+  }
+
+  void add_edge_to_sink(int u, int capacity)
+  {
+    add_edge(u, sink, capacity);
+  }
+
+  bool bfs(int source, int sink)
   {
     int i = 0;
+    std::memset(&level[0], 0, sizeof(level[0]) * n);
 
-    std::fill(std::begin(_level), std::end(_level), 0);
-
-    _level[s] = 1;
-    _q[i++] = s;
-    for (auto j = 0; j < i && !_level[t]; ++j)
+    level[source] = 1;
+    q[i++] = source;
+    for (int j = 0; i > j && !level[sink]; ++j)
     {
-      int u = _q[j];
-      for (auto const& v : _adj[u])
+      int u = q[j];
+      for (auto const& v : adj[u])
       {
-        if (_level[v.next()] || v.residual() == 0) continue;
+        if (level[v->to] || v->capacity == 0) continue;
 
-        _level[v.next()] = _level[u] + 1;
-        _q[i++] = v.next();
+        level[v->to] = level[u] + 1;
+        q[i++] = v->to;
       }
     }
 
-    return (_level[t] != 0);
+    return (level[sink] != 0);
   }
 
-  flow_type block(int s, int t, flow_type current)
+  int dfs(int current, int sink, int capacity)
   {
-    if (s == t) return current;
-    
-    for (auto& i = _start[s]; i < _adj[s].size(); ++i)
+    if (current == sink) return current;
+
+    for (auto& i = s[current]; i < adj[current].size(); ++i)
     {
-      auto& j = _adj[s][i];
+      auto v = adj[current][i];
 
-      if (j.residual() == 0 || _level[j.next()] != _level[s] + 1) continue;
-      if (flow_type residual = block(j.next(), t, std::min(j.residual(), current)))
+      if ((level[v->to] != level[current] + 1) && v->capacity == 0) continue;
+      if (int flow = dfs(v->to, sink, std::min(v->capacity, capacity)))
       {
-        j.residual -= residual;
-        _adj[j.next()][j.inverse()].add(residual);
-
-        return residual;
+        adj[current][i]->capacity -= flow;
+        adj[current][i]->reverse->capacity += flow;
+        
+        return flow;
       }
     }
 
     return 0;
   }
 
-  flow_type flow(int s, int t)
+  int flow()
   {
-    _q.resize(_n);
-    _level.resize(_n);
-    _start.reserve(_n);
-
-    flow_type result = 0;
-    while (level(s, t))
+    int answer = 0;
+    while (bfs(source, sink))
     {
-      std::fill(std::begin(_start), std::end(_start), 0);
-      while (flow_type f = block(s, t, std::numberic_limits<flow_type>::max())) result += f;
+      std::memset(&s[0], 0, sizeof(s[0]) * n);
+
+      while (int f = dfs(source, sink, INF))
+      {
+        answer += f;
+      }
     }
 
-    return result;
+    return answer;
   }
-
-protected:
-  class _edge
-  {
-  public:
-    _edge(int next, int inverse, flow_type residual) : _next(next), _inverse_edge(inverse), _residual(residual) {}
-
-    int next() const { return _next; }
-    int next() { return _next; }
-        
-    int inverse() const { return _inverse_edge; }
-    int inverse() { return _inverse_edge; }
-
-
-    flow_type residual() const { return _residual; }
-    flow_type residual() { return _residual; }
-
-    void add(flow_type r) { _residual += r; }
-
-  private:
-    int _next;
-    int _inverse_edge;
-
-    flow_type _residual;
-  };
-
-private:
-  size_type _n;
-  std::vector<std::vector<_edge>> _adj;
-  std::vector<int> _q, _start;
-  std::vector<int> _level;
 };
