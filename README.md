@@ -96,6 +96,48 @@ maximum_matching.add_edge(u, v); // adds edge from u too v
 maximum_matching.match(); // returns the maximum cardinality matching in bipartite graph.
 ```
 
+##### Examples
+```c++
+#include <iostream>
+#include <numeric>
+
+int N, M;
+int E;
+
+std::vector<int> left, right;
+
+int main(int const argc, char const** argv)
+{
+  std::ios::sync_with_stdio(false);
+  std::cin.tie(0);
+  
+  std::cin >> N >> M >> E;
+  
+  hopcroft_karp maximum_matching(N, M);
+  left.resize(N, 0);
+  right.resize(M, 0);
+  
+  for (int i = 0; i < E; ++i)
+  {
+    int from, to;
+    std::cin >> from >> to;
+    
+    left[from] = right[to] = 1;
+    maximum_matching.add_edge(from - 1, to - 1); // because nodes are numbered from 0 to n.
+  }
+  
+  int answer = maximum_matching.match();
+  std::cout << answer << "\n"; // total matching
+  
+  int number_of_left = std::accumulate(std::begin(left), std::end(left), 0);
+  int number_of_right = std::accumulate(std::begin(right), std::end(right), 0);
+  
+  std::cout << ((number_of_left + number_of_right == 2 * answer) ? "YES" : "NO") << "\n";
+
+  return 0;
+}
+```
+
 ## Mathematics
 * greatest common divisors (GCD)
 * extended greatest common divisors (extended GCD)
