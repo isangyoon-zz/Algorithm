@@ -33,10 +33,13 @@ disjoint_Set.unite(x, y); // join two subsets into a single subset.
 ```
 
 ## Graph
-### 1. Maximum Flow (Ford Fulkerson)
+### Flow Networks
+A flow network is a directed graph where each edge has a capacity and each edge receives a flow.
+
+#### 1. Ford Fulkerson
 The Ford–Fulkerson algorithm (FFA) is a greedy algorithm that computes the maximum flow in a flow network.
 
-#### Usages
+##### Usages
 ```c++
 ford_fulkerson maximum_flow(std::size_t size, int source, int sink);
 
@@ -48,8 +51,23 @@ maximum_flow.add_edge_to_sink(u, capacity); // adds edge u to sink
 maximum_flow.flow(); // returns the maximum flow in graph
 ```
 
-### 2. Maximum Flow (Edmond Karp)
-### 3. Maximum Flow (Dinic)
+#### 2. Edmonds Karp
+The Edmonds Karp algorithm is an implementation of the Ford Fulkerson algorithm for computing the maximum flow in a flow network in O(V^2 E) time.
+
+##### Usages
+```c++
+edmonds_karp maximum_flow(std::size_t size, int source, int sink);
+
+/* Operations */
+maximum_flow.add_edge(u, v, capacity); // adds edge from u to v
+maximum_flow.add_edge_from_source(v, capacity); // adds edge from source to v
+maximum_flow.add_edge_to_sink(u, capacity); // adds edge u to sink
+
+maximum_flow.flow(); // returns the maximum flow in graph
+```
+
+#### 3. Dinic
+
 
 ## Mathematics
 * greatest common divisors (GCD)
