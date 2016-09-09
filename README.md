@@ -67,7 +67,19 @@ maximum_flow.flow(); // returns the maximum flow in graph
 ```
 
 #### 3. Dinic
+The Dinic's algorithm is a strongly polynomial algorithm for computing the maximum flow in a flow network. It runs in O(V^2 E) time and is similar to the Edmonds Karp algorithm.
 
+##### Usages
+```c++
+dinic maximum_flow(std::size_t size, int source, int sink);
+
+/* Operations */
+maximum_flow.add_edge(u, v, capacity); // adds edge from u to v
+maximum_flow.add_edge_from_source(v, capacity); // adds edge from source to v
+maximum_flow.add_edge_to_sink(u, capacity); // adds edge u to sink
+
+maximum_flow.flow(); // returns the maximum flow in graph
+```
 
 ## Mathematics
 * greatest common divisors (GCD)
