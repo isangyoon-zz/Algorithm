@@ -12,13 +12,11 @@ struct ford_fulkerson
 
   std::size_t n;
   int source, sink;
-  std::vector<std::vector<edge*> > adj;
-  std::vector<bool> visited;
+  std::vector<std::vector<edge*>> adj;
 
   ford_fulkerson(std::size_t n, int source, int sink) : n(n), source(source), sink(sink)
   {
     adj.resize(n);
-    visited.resize(n);
   }
 
   void add_edge(int u, int v, int capacity)
