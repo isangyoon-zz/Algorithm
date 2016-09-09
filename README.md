@@ -1,5 +1,6 @@
 # Algorithms for PS
 This is a C++ codes for Problem Solving(PS). It includes some algorithms such as arithmetic, helper function, data structures and etc.
+All codes is for use of myself studies.
 
 ## Data Structures
 ### 1. Fenwick Tree (Binary Indexed Tree; BIT)
@@ -87,9 +88,10 @@ The Hopcroft-karp algorithm is an algorithm that take as input a bipartite graph
 
 ##### Usages
 ```c++
-hopcroft_karp maximum_matching();
+hopcroft_karp maximum_matching(std::size_t n, std::size_t m); // left nodes size(n), right nodes size(m) graph
 
 /* Operations */
+maximum_matching.add_edge(u, v); // adds edge from u too v
 
 maximum_matching.match(); // returns the maximum cardinality matching in bipartite graph.
 ```
