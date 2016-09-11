@@ -8,7 +8,7 @@ long long gcd(long long a, long long b)
 std::pair<long long, long long> extended_gcd(long long a, long long b)
 {
   if (b == 0) return {1, 0};
-  
+
   auto gcd = extended_gcd(b, a % b);
   return {gcd.second, gcd.first - gcd.second * (a / b)};
 }
@@ -24,7 +24,7 @@ long long mod_inverse(long long a, long long mod)
 auto number_of_divisors(std::size_t const size) -> std::vector<int>
 {
   std::vector<int> divisors(size + 1);
-  
+
   for (auto i = 1; i <= size; ++i)
   {
     for (auto j = i; j <= size; j += i)
@@ -32,7 +32,7 @@ auto number_of_divisors(std::size_t const size) -> std::vector<int>
       divisors[j] += 1;
     }
   }
-  
+
   return divisors;
 }
 
@@ -41,7 +41,7 @@ auto number_of_divisors(std::size_t const size) -> std::vector<int>
 auto sum_of_divisors(std::size_t const size) -> std::vector<int>
 {
   std::vector<int> divisors(size + 1);
-  
+
   for (auto i = 1; i <= size; ++i)
   {
     for (auto j = i; j <= size; j += i)
@@ -49,7 +49,7 @@ auto sum_of_divisors(std::size_t const size) -> std::vector<int>
       divisors[j] += i;
     }
   }
-  
+
   return divisors;
 }
 
@@ -59,12 +59,12 @@ auto sum_of_divisors(std::size_t const size) -> std::vector<int>
 auto totient(std::size_t const size) -> std::vector<int>
 {
   std::vector<int> phi(size + 1, 0);
-  
+
   for (auto i = 1; i <= size; ++i)
   {
     phi[i] = i;
   }
-  
+
   for (auto i = 2; i <= size; ++i)
   {
     if (phi[i] == i)
@@ -75,6 +75,14 @@ auto totient(std::size_t const size) -> std::vector<int>
       }
     }
   }
-  
+
   return phi;
+}
+
+// compute number of integers divisible by k in [a, b]
+auto divisible(long long a, long long b, long long k)
+{
+  long long result = (a % k == 0) ? ((b - a) / k + 1) : (((b / k) + 1) - ((a / k) + 1));
+
+  return result;
 }
