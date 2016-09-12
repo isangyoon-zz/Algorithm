@@ -1,88 +1,108 @@
-struct hopcroft_karp
+/* Hopcroft-Karp Maximum bipartite matching */
+// Index from 1
+class hopcroft_karp
 {
-  std::size_t n, m; // number of left nodes (n), number of right nodes (m)
-  std::vector<std::vector<int>> adj;
-  std::vector<int> matching;
-  std::vector<int> distance;
+private:
+  typedef std::size_t size_type;
   
-  hopcroft_karp(std::size_t n, std::size_t m) : n(n), m(m)
-  {
-    adj.resize(n);
-    matching.resize(n, -1);
-    distance.resize(n, -1);
-  }
+  const int INF = 1 << 30;
+  
+public:
+  hopcroft_karp(size_type n) : _n(n), _adj(n + 1), _visited(n + 1, false), _distance(n + 1), _l_match(n + 1), _r_match( n + 1) {}
   
   void add_edge(int u, int v)
   {
-    adj[u].push_back(v);
+    _adj[u].push_back(v);
   }
   
-  void bfs()
+  bool bfs()
   {
     std::queue<int> q;
-    for (auto i = 0; i < n; ++i)
+    
+    for (unsigned int i = 1; i <= _n; ++i)
     {
-      if (matching[i] == -1)
+      if (!_l_match[i])
       {
-        distance[i] = 0;
+        _distance[i] = 0;
         
         q.push(i);
       }
       else
       {
-        distance[i] = -1;
+        _distance[i] = INF;
       }
     }
+    
+    _distance[0] = INF;
     
     while (!q.empty())
     {
-      auto u = q.front();
+      int u = q.front();
       q.pop();
       
-      for (auto v : adj[u])
+      for (auto v : _adj[u])
       {
-        if (distance[matching[v]] == -1) return true;
-        if (distance[matching[v]] != -1) continue;
-        
-        distance[matching[v]] = distance[u] + 1;
-        
-        q.push(matching[v]);
-      }
-    }
-    
-    return false;
-  }
-  
-  bool dfs(int u)
-  {
-    for (auto v : adj[u])
-    {
-      if (distance[matching[v]] == distance[u] + 1)
-      {
-        if (dfs(matching[v]))
+        if (_distance[_r_match[v]] == INF)
         {
-          matching[u] = v;
-          matching[v] = u;
+          _distance[_r_match[v]] = _distance[u] + 1;
           
-          return true;
+          q.push(_r_match[v]);
         }
       }
     }
     
-    return false;
+    return _distance[0] != INF;
+  }
+  
+  bool dfs(int u)
+  {
+    if (u)
+    {
+      for (auto v : _adj[u])
+      {
+        if (_distance[_r_match[v]] == _distance[u] + 1 && dfs(_r_match[v]))
+        {
+          _l_match[u] = v;
+          _r_match[v] = u;
+          
+          return true;
+        }
+      }
+      
+      _distance[u] = INF;
+      
+      return false;
+    }
+    
+    return true;
   }
   
   int match()
   {
     int answer = 0;
+    
     while (bfs())
     {
-      for (auto i = 0; i < n; ++i)
+      for (unsigned int i = 1; i <= _n; ++i)
       {
-        if (dfs(i) && matching[i] == 0) ++answer;
+        if (!_l_match[i])
+        {
+          if (dfs(i))
+          {
+            ++answer;
+          }
+        }
       }
     }
     
     return answer;
   }
+
+private:
+  std::size_t _n;
+  std::vector<int> _l_match, _r_match;
+  std::vector<int> _distance;
+  
+  std::vector<bool> _visited;
+  std::vector<std::vector<int>> _adj;
 };
