@@ -61,7 +61,7 @@ int main(int const argc, char const** argv)
   suffix_array suffix("bobbuger");
   std::vector<int> arr = suffix.get();
 
-  // expected: 1 5 0 2 7 4 3 6 and 0
+  // expected: 1 5 0 2 7 4 3 6 and 1
   std::copy(std::begin(arr), std::end(arr), std::ostream_iterator<int>(std::cout, " "));
   std::cout << "\n";
 
