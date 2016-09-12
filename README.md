@@ -53,7 +53,7 @@ maximum_flow.flow(); // returns the maximum flow in graph.
 ```
 
 #### 2. Edmonds-Karp
-The Edmonds Karp algorithm is an implementation of the Ford Fulkerson algorithm for computing the maximum flow in a flow network in O(V^2 E) time.
+The Edmonds Karp algorithm is an implementation of the Ford Fulkerson algorithm for computing the maximum flow in a flow network in O(V^2*E) time.
 
 ##### Usages
 ```c++
@@ -84,58 +84,15 @@ maximum_flow.flow(); // returns the maximum flow in graph.
 
 ### Maximum matching for bipartite graph
 #### Hopcroft-Karp
-The Hopcroft-karp algorithm is an algorithm that take as input a bipartite graph and produces as output a maximum cardinality matching. It runs in O(|E| sqrt(|v|)) time.
+The Hopcroft-karp algorithm is an algorithm that take as input a bipartite graph and produces as output a maximum cardinality matching. It runs in O(|E|*sqrt(|v|)) time.
 
 ##### Usages
 ```c++
-hopcroft_karp maximum_matching(std::size_t n, std::size_t m); // left nodes size(n), right nodes size(m) graph
+hopcroft_karp maximum_matching(std::size_t n);
 
 /* Operations */
 maximum_matching.add_edge(u, v); // adds edge from u too v
-
 maximum_matching.match(); // returns the maximum cardinality matching in bipartite graph.
-```
-
-##### Examples
-```c++
-#include <iostream>
-#include <numeric>
-
-int N, M;
-int E;
-
-std::vector<int> left, right;
-
-int main(int const argc, char const** argv)
-{
-  std::ios::sync_with_stdio(false);
-  std::cin.tie(0);
-  
-  std::cin >> N >> M >> E;
-  
-  hopcroft_karp maximum_matching(N, M);
-  left.resize(N, 0);
-  right.resize(M, 0);
-  
-  for (int i = 0; i < E; ++i)
-  {
-    int from, to;
-    std::cin >> from >> to;
-    
-    left[from] = right[to] = 1;
-    maximum_matching.add_edge(from - 1, to - 1); // because nodes are numbered from 0 to n.
-  }
-  
-  int answer = maximum_matching.match();
-  std::cout << answer << "\n"; // total matching
-  
-  int number_of_left = std::accumulate(std::begin(left), std::end(left), 0);
-  int number_of_right = std::accumulate(std::begin(right), std::end(right), 0);
-  
-  std::cout << ((number_of_left + number_of_right == 2 * answer) ? "YES" : "NO") << "\n";
-
-  return 0;
-}
 ```
 
 ## Mathematics
