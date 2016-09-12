@@ -3,11 +3,8 @@
 // if directed graph, change _edge to int and add_edge method.
 class euler_path
 {
-private:
-  typedef std::size_t size_type;
-  
 public:
-  euler_path(size_type n) : _n(n) {}
+  euler_path() {}
   
   void add_edge(int u, int v)
   {
@@ -36,7 +33,7 @@ public:
     _paths.push_back(u);
   }
   
-  auto path() { return _paths.back(); }
+  auto paths() { return _paths.back(); }
   
 protected:
   struct _edge
@@ -48,7 +45,7 @@ protected:
   };
   
 private:
-  size_type _n;
   std::list<_edge> _adj[100001];
   std::vector<int> _paths;
 };
+
