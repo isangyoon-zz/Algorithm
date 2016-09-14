@@ -33,6 +33,21 @@ disjoint_set.find(x); // determine which subset a particular element is in.
 disjoint_Set.unite(x, y); // join two subsets into a single subset.
 ```
 
+### 3. Sparse table
+Sparse table is a data structure that answers static Range Minimum Query(RMQ). It is recognized for its relatively fast query and short implementation compared to other data structures.
+
+### 4. RMQ(Range minimum query) and LCA(Lowest common ancestor)
+
+
+### 5. Segment tree with lazy propagation
+### 6. Order statistic tree
+### 7. Persistent segment tree
+### 8. Treap
+### 9. Tries
+### 10. Splay
+### 11. Link-cut tree
+### 12. KDTree
+
 ## Graph
 ### Flow Networks
 A flow network is a directed graph where each edge has a capacity and each edge receives a flow.
@@ -104,6 +119,35 @@ maximum_matching.match(); // returns the maximum cardinality matching in biparti
 * combination, permutation
 * powerset (the set of all subsets of set)
 * find prime number (sieve of eratosthenes, sieve of atkin)
+
+## Geometry
+### 1. Basic shapes
+### 2. Polygon
+### 3. Trigonometry
+### 4. Convex hull
+### 5. Grids
+
+## Sorting
+### O(N^2) sorts
+#### 1. Insertion sort
+#### 2. Bubble sort
+#### 3. Cocktail sort
+#### 4. Comb sort
+
+### O(N*log(N)) sorts
+#### 1. Merge sort
+#### 2. Quick sort
+#### 3. Heap sort
+
+### Other sorts
+#### 1. Counting sort
+#### 2. Pancake sort
+#### 3. Permutation sort
+#### 4. Radix sort
+
+## String
+### 1. Knuth-Morris-Pratt(KMP)
+### 2. Rabin-Karp
 
 ## Miscellaneous
 ### Scanner (Fast I/O)
