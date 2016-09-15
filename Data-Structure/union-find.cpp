@@ -1,10 +1,11 @@
 // O(a(N)) = faster than O(log N)
+// index from 0 ~ N - 1
 class unionfind
 {
 public:
-  unionfind(int const n) : _parent(n + 1, 0), _rank(n + 1, 0)
+  unionfind(int const n) : _parent(n, 0), _rank(n, 0)
   {
-    for (auto i = 1; i <= n; ++i) _parent[i] = i;
+    for (int i = 0; i < n; ++i) _parent[i] = i;
   }
   ~unionfind() {}
 
@@ -19,18 +20,18 @@ public:
     u = find(u);
     if (v == u) return;
 
-    if (_rank[v] > _rank[u])
-    {
-      _parent[u] = v;
-      if (_rank[u] == _rank[v]) ++_rank[v];
-    }
-    else
+    if (_rank[v] < _rank[u])
     {
       _parent[v] = u;
     }
+    else
+    {
+      _parent[u] = v;
+      if (_rank[v] == _rank[u]) ++_rank[v];
+    }
   }
 
-  bool is_same(int v, int u)
+  bool same(int v, int u)
   {
     return find(v) == find(u);
   }
