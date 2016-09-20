@@ -25,7 +25,7 @@ public:
   
   void update(int p, value_type value)
   {
-    for(; p <= _size; p += (p & (-p))) _tree[p] += value;
+    for(; p < _size; p += (p & (-p))) _tree[p] += value;
   }
   
   value_type query(int p)
@@ -36,10 +36,7 @@ public:
     return result;
   }
   
-  size_type size() const noexcept
-  {
-    return _size;
-  }
+  size_type size() const noexcept { return _size; }
   
 private:
   size_type _size;
