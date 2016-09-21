@@ -1,3 +1,5 @@
+// palindromic_tree PT(S)
+// for (i = 0 to |S| - 1) PT.append(i)
 class palindromic_tree
 {
 private:
