@@ -55,7 +55,7 @@ public:
   bool append(int p)
   {
     int key = get_key(_s[p]);
-    _s[++n] = _s[p];
+    _s[++node] = _s[p];
 
     pointer_type cursor = get_link(last);
     if (cursor->next[key])
