@@ -13,7 +13,7 @@ std::pair<long long, long long> extended_gcd(long long a, long long b)
   return {gcd.second, gcd.first - gcd.second * (a / b)};
 }
 
-// find x in [0, m) s.t. a * x === gcd(a, m) (mod m)
+// find x in [0, m) s.t. a * x ≡ gcd(a, m) (mod m)
 long long mod_inverse(long long a, long long mod)
 {
   return (extended_gcd(a, mod).first % mod + mod) % mod;
