@@ -1,5 +1,5 @@
 // Fenwick Tree (BIT) using STL vector
-// using fenwick_tree::query, fenwick_tree::update
+// usage: fenwick_tree::query(index), fenwick_tree::update(index, diff)
 namespace fenwick_tree
 {
   const int SIZE = 100000;
@@ -16,7 +16,7 @@ namespace fenwick_tree
   void update(int p, int value) { for (; p <= SIZE; p += p & -p) tree[p] += value; }
 }
 
-// don't use it!
+// usage: fenwick_tree<int> bit(size), bit.query(index), bit.update(index, diff)
 template <typename T>
 class fenwick_tree
 {
